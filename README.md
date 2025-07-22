@@ -1,36 +1,33 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# SecureSight Dashboard
 
-## Getting Started
+A web-based dashboard for managing CCTV feeds and incidents, built with Next.js and Prisma.
 
-First, run the development server:
+## 🚀 Deployment Instructions
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+This project can be deployed on platforms like:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 🔸 Vercel (Recommended for Next.js)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. Push your project to GitHub.
+2. Go to [https://vercel.com](https://vercel.com) and log in.
+3. Click **"Add New Project"**, import from GitHub.
+4. Configure:
+   - **Framework**: Next.js (auto-detected)
+   - **Environment Variables** (if using `.env`)
+5. Click **Deploy**.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Your dashboard will be live in minutes.
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 💡 Tech Decisions
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Next.js 15**: Chosen for fast routing, built-in API routes, and React server components.
+- **Tailwind CSS**: Enables utility-first styling and rapid UI development.
+- **Prisma ORM + SQLite**: Easy to configure and seed for local development. Prisma offers type-safe queries and database migration tools.
+- **App Router (not Pages Router)**: Used the new App Router directory structure from Next.js for modularity and server components.
+- **API Routes**: Used instead of external backend for simplicity during local and serverless deployment.
+- **.env File**: Used to manage `DATABASE_URL` locally for Prisma.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
