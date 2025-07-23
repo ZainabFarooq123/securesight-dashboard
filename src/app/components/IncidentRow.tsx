@@ -1,9 +1,11 @@
+import Image from "next/image";
 import { Incident } from "./IncidentList";
+import { CameraIcon, ClockIcon } from "lucide-react"; // optional, or replace with your own SVGs
 
-const typeColors: Record<string, string> = {
-  "Unauthorised Access": "bg-red-500",
-  "Gun Threat": "bg-yellow-500",
-  "Face Recognised": "bg-blue-500",
+const typeIcons: Record<string, string> = {
+  "Unauthorised Access": "/icons/lock.svg",
+  "Gun Threat": "/icons/gun.svg",
+  // add more as needed
 };
 
 export default function IncidentRow({
@@ -14,28 +16,43 @@ export default function IncidentRow({
   onResolve: (id: number) => void;
 }) {
   return (
-    <div className="flex items-center gap-4 p-2 border rounded hover:bg-gray-50 transition">
+    <div className="flex items-start gap-3 p-2 hover:bg-[#1A1A1A] rounded-lg transition-all">
+      {/* Thumbnail */}
       <img
         src={incident.thumbnailUrl}
-        alt="Thumbnail"
-        className="w-16 h-16 object-cover rounded"
+        alt="Incident Thumbnail"
+        className="w-[120px] h-[67px] object-cover rounded-[6px] border border-gray-700"
       />
-      <div className="flex-1">
-        <div className="flex items-center gap-2">
-          <span
-            className={`w-3 h-3 rounded-full ${typeColors[incident.type]}`}
-          ></span>
-          <span className="font-medium">{incident.type}</span>
+
+      {/* Info */}
+      <div className="flex flex-col flex-1 text-white">
+        {/* Incident Type with Icon */}
+        <div className="flex items-center gap-2 font-semibold text-[15px]">
+          <img src={typeIcons[incident.type]} alt="" className="w-[18px] h-[18px]" />
+          <span>{incident.type}</span>
         </div>
-        <div className="text-sm text-gray-600">
-          {incident.camera.location} — {incident.tsStart} to {incident.tsEnd}
+
+        {/* Location */}
+        <div className="flex items-center text-sm text-gray-400 mt-1 gap-2">
+          <CameraIcon className="w-4 h-4" />
+          <span>{incident.camera.location}</span>
+        </div>
+
+        {/* Timestamp */}
+        <div className="flex items-center text-sm text-gray-400 mt-1 gap-2">
+          <ClockIcon className="w-4 h-4" />
+          <span>
+            {incident.tsStart} – {incident.tsEnd} on {incident.date}
+          </span>
         </div>
       </div>
+
+      {/* Resolve Button */}
       <button
         onClick={() => onResolve(incident.id)}
-        className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600"
+        className="text-yellow-400 text-sm font-semibold hover:underline ml-auto"
       >
-        Resolve
+        Resolve →
       </button>
     </div>
   );

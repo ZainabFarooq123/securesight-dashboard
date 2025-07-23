@@ -1,15 +1,21 @@
-import IncidentPlayer from "./components/IncidentPlayer";
-import IncidentList from "./components/IncidentList";
+// app/page.tsx
+import IncidentPlayer from './components/IncidentPlayer';
+import IncidentList from './components/IncidentList';
 
 export default function HomePage() {
   return (
-    <main className="min-h-screen p-6 bg-gray-100 flex flex-col md:flex-row gap-6">
-      <div className="md:w-2/3">
+    <div className="flex h-[calc(100vh-64px)] overflow-hidden">
+      {/* Incident Player Section */}
+      <div className="w-2/3 bg-black p-4">
         <IncidentPlayer />
       </div>
-      <div className="md:w-1/3">
+
+      {/* Incident List Section */}
+      <div className="w-1/3 bg-[#0F0F0F] text-white overflow-y-auto">
         <IncidentList />
       </div>
-    </main>
+    </div>
   );
 }
+
+
