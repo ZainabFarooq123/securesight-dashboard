@@ -1,13 +1,12 @@
-// src/app/api/incidents/[id]/resolve/route.ts
+// app/api/incidents/[id]/resolve/route.ts
 
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
-export async function PATCH(
-  request: Request,
-  { params }: { params: Record<string, string> } // Updated to use Record<string, string>
-) {
-  const { id } = params;
+export async function PATCH(request: Request) {
+  const url = new URL(request.url);
+  const id = url.pathname.split("/").at(-2); // Extracts the dynamic `[id]`
+
   const incidentId = Number(id);
 
   if (isNaN(incidentId)) {

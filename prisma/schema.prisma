@@ -1,10 +1,9 @@
-// prisma/schema.prisma
 generator client {
   provider = "prisma-client-js"
 }
 
-datasource db {os
-  provider = "postgresql" 
+datasource db {
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -18,10 +17,10 @@ model Camera {
 model Incident {
   id           Int      @id @default(autoincrement())
   cameraId     Int
-  camera       Camera   @relation(fields: [cameraId], references: [id])
   type         String
   tsStart      DateTime
   tsEnd        DateTime
   thumbnailUrl String
   resolved     Boolean  @default(false)
+  camera       Camera   @relation(fields: [cameraId], references: [id])
 }
