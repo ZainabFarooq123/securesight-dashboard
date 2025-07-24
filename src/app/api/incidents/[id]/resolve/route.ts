@@ -1,20 +1,20 @@
-import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma"; 
+import { prisma } from "@/lib/prisma";
+import { NextRequest } from "next/server";
 
 export async function PATCH(
-  req: Request,
-  context: { params: { id: string } }
+  req: NextRequest,
+  { params }: { params: { id: string } }
 ) {
-  const id = parseInt(context.params.id); // convert from string to number
+  const id = Number(params.id); // convert to number if your DB uses numeric IDs
 
   if (isNaN(id)) {
-    return NextResponse.json({ error: "Invalid ID" }, { status: 400 });
+    return new Response("Invalid incident ID", { status: 400 });
   }
 
-  const updated = await prisma.incident.update({
+  const updatedIncident = await prisma.incident.update({
     where: { id },
     data: { resolved: true },
   });
 
-  return NextResponse.json(updated);
+  return Response.json(updatedIncident);
 }
