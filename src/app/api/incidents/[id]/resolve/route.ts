@@ -1,26 +1,27 @@
 // src/app/api/incidents/[id]/resolve/route.ts
 
 import { prisma } from "@/lib/prisma";
-import { NextRequest } from "next/server";
+import { NextResponse } from "next/server";
 
 export async function PATCH(
-  req: NextRequest,
-  context: { params: { id: string } }
+  request: Request,
+  { params }: { params: { id: string } }
 ) {
-  const id = Number(context.params.id);
+  const { id } = params;
+  const incidentId = Number(id);
 
-  if (isNaN(id)) {
-    return new Response("Invalid incident ID", { status: 400 });
+  if (isNaN(incidentId)) {
+    return new NextResponse("Invalid incident ID", { status: 400 });
   }
 
   try {
     const updatedIncident = await prisma.incident.update({
-      where: { id },
+      where: { id: incidentId },
       data: { resolved: true },
     });
 
-    return Response.json(updatedIncident);
+    return NextResponse.json(updatedIncident);
   } catch (error) {
-    return new Response("Incident not found", { status: 404 });
+    return new NextResponse("Incident not found", { status: 404 });
   }
 }
