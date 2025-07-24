@@ -1,59 +1,63 @@
-import Image from "next/image";
-import { Incident } from "./IncidentList";
-import { CameraIcon, ClockIcon } from "lucide-react"; // optional, or replace with your own SVGs
+"use client";
 
-const typeIcons: Record<string, string> = {
-  "Unauthorised Access": "/icons/lock.svg",
-  "Gun Threat": "/icons/gun.svg",
-  // add more as needed
+import { CameraIcon, ClockIcon } from "lucide-react";
+import { IncidentIcon } from "./IncidentIcons";
+
+export type Incident = {
+  src: string;
+  type: string;
+  location: string;
+  ts: string;
 };
 
 export default function IncidentRow({
   incident,
   onResolve,
+  index,
+  resolved,
 }: {
   incident: Incident;
-  onResolve: (id: number) => void;
+  onResolve: (index: number) => void;
+  index: number;
+  resolved: boolean;
 }) {
   return (
-    <div className="flex items-start gap-3 p-2 hover:bg-[#1A1A1A] rounded-lg transition-all">
+    <div
+      className={`transition-opacity duration-500 ${
+        resolved ? "opacity-30" : "opacity-100"
+      } flex items-start gap-4 bg-[#1B1B1B] p-3 rounded-lg border border-white/10`}
+    >
       {/* Thumbnail */}
       <img
-        src={incident.thumbnailUrl}
-        alt="Incident Thumbnail"
-        className="w-[120px] h-[67px] object-cover rounded-[6px] border border-gray-700"
+        src={incident.src}
+        alt={`Incident ${index + 1}`}
+        className="w-[120px] h-[67px] rounded-lg object-cover border border-gray-700"
       />
 
       {/* Info */}
-      <div className="flex flex-col flex-1 text-white">
-        {/* Incident Type with Icon */}
-        <div className="flex items-center gap-2 font-semibold text-[15px]">
-          <img src={typeIcons[incident.type]} alt="" className="w-[18px] h-[18px]" />
+      <div className="flex-1 flex flex-col gap-1 text-white">
+        <div className="flex items-center gap-2 text-base font-semibold">
+          <IncidentIcon type={incident.type} />
           <span>{incident.type}</span>
         </div>
-
-        {/* Location */}
-        <div className="flex items-center text-sm text-gray-400 mt-1 gap-2">
+        <div className="flex items-center text-sm text-gray-300 gap-2">
           <CameraIcon className="w-4 h-4" />
-          <span>{incident.camera.location}</span>
+          <span>{incident.location}</span>
         </div>
-
-        {/* Timestamp */}
-        <div className="flex items-center text-sm text-gray-400 mt-1 gap-2">
+        <div className="flex items-center text-sm text-gray-300 gap-2">
           <ClockIcon className="w-4 h-4" />
-          <span>
-            {incident.tsStart} – {incident.tsEnd} on {incident.date}
-          </span>
+          <span>{incident.ts}</span>
         </div>
       </div>
 
       {/* Resolve Button */}
       <button
-        onClick={() => onResolve(incident.id)}
-        className="text-yellow-400 text-sm font-semibold hover:underline ml-auto"
+        onClick={() => onResolve(index)}
+        className="text-yellow-400 font-semibold text-sm flex items-center gap-1 hover:underline whitespace-nowrap"
       >
-        Resolve →
+        Resolve <span className="text-lg">›</span>
       </button>
     </div>
   );
 }
+

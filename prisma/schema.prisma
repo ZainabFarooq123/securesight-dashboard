@@ -1,14 +1,15 @@
+// prisma/schema.prisma
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "sqlite" // or "postgresql" if using a cloud/local Postgres
   url      = env("DATABASE_URL")
 }
 
 model Camera {
-  id        Int       @id @default(autoincrement())
+  id        Int        @id @default(autoincrement())
   name      String
   location  String
   incidents Incident[]
