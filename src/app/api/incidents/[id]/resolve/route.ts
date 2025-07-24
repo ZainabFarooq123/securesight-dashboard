@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 
 export async function PATCH(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Record<string, string> } // Updated to use Record<string, string>
 ) {
   const { id } = params;
   const incidentId = Number(id);
