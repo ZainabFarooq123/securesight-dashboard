@@ -19,7 +19,8 @@ export async function PATCH(request: Request) {
     });
 
     return NextResponse.json(updatedIncident);
-  } catch (error) {
+  } catch (error: unknown) {
+    console.error("Update failed:", error);
     return new NextResponse("Incident not found", { status: 404 });
   }
 }
