@@ -1,11 +1,10 @@
-// app/api/incidents/[id]/resolve/route.ts
-
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
 export async function PATCH(request: Request) {
   const url = new URL(request.url);
-  const id = url.pathname.split("/").at(-2); // Extracts the dynamic `[id]`
+  const pathParts = url.pathname.split("/");
+  const id = pathParts[pathParts.length - 2]; // captures the [id] from the URL
 
   const incidentId = Number(id);
 
